@@ -1,15 +1,34 @@
 >  ML2023Spring - HW01 相关信息：
+>  
 >  [课程主页](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
+>  
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
+>  
 >  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw1/leaderboard?tab=public)
+>  
 >  [Sample code](https://colab.research.google.com/drive/1BESEu-l3qrGRULoATuXnWasUNuUlVF1Z?fbclid=IwAR1FrjUsp4rTy5PPFV-aWq6IG_Z44mFT4VH5e1lIhlekFl7fAvxGRCTCyR0#scrollTo=QoWPUahCtoT6)
+>  
 >  [HW01 视频]( https://www.bilibili.com/video/BV1TD4y137mP/?p=14&share_source=copy_web&vd_source=e46571d631061853c8f9eead71bdb390) 可以在做作业之前看一部分，我摸索完才发现视频有讲 Data Feature :(
+>  
 >  [HW01 PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/HW01.pdf)
+>  
 >  
 >P.S. 即便 kaggle 上的时间已经截止，你仍然可以在上面提交和查看分数。但需要注意的是：在 kaggle 截止日期前你应该选择两个结果进行最后的Private评分。
 >  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework
 
-[toc]
+# 目录
+- [任务目标（回归）](#任务目标（回归）)
+- [性能指标（Metric）](#性能指标（Metric）)
+- [数据解析](#数据解析)
+- [Sample code 主体部分解析](#Sample code 主体部分解析)
+	- [Some Utility Functions](#Some Utility Functions)
+	- [Dataset](#Dataset)
+	- [Neural Network Model](#Neural Network Model)
+	- [Feature Selection](#Feature Selection)
+	- [Training Loop](#Training Loop)
+- [Baselines](#Baselines)
+- [参考链接](#参考链接)
+
 
 # 任务目标（回归）：
 
@@ -248,7 +267,7 @@ def trainer(train_loader, valid_loader, model, config, device):
   - 调整其他超参数
 
 
-参考链接：
+# 参考链接
 
 1. [PyTorch: What is the difference between tensor.cuda() and tensor.to(torch.device("cuda:0"))?](https://stackoverflow.com/questions/62907815/pytorch-what-is-the-difference-between-tensor-cuda-and-tensor-totorch-device)
 1. [PyTorch Tutorial PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/environment.pdf)
