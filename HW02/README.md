@@ -4,9 +4,9 @@
 >
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
 >
->  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw1/leaderboard?tab=public)
+>  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw2)
 >
->  [Sample code](https://colab.research.google.com/drive/1BESEu-l3qrGRULoATuXnWasUNuUlVF1Z?fbclid=IwAR1FrjUsp4rTy5PPFV-aWq6IG_Z44mFT4VH5e1lIhlekFl7fAvxGRCTCyR0#scrollTo=QoWPUahCtoT6)
+>  [Sample code](https://colab.research.google.com/drive/1wzeiVy2g7HpSjlidUr0Gi50NnHBWTkvN#scrollTo=KVUGfWTo7_Oj)
 >
 >  [HW02 视频](https://www.bilibili.com/video/BV1TD4y137mP/?p=26&share_source=copy_web&vd_source=e46571d631061853c8f9eead71bdb390)
 >
@@ -15,48 +15,50 @@
 >  P.S. 即便 kaggle 上的时间已经截止，你仍然可以在上面提交和查看分数。但需要注意的是：在 kaggle 截止日期前你应该选择两个结果进行最后的Private评分。
 >  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework。
 
-- [任务目标（分类）](#--------)
-- [Metric](#metric)
-- [数据解析](#----)
-- [Report](#report)
-  * [1](#1)
-    + [计算神经网络的参数量](#----------)
-    + [构建总参数量接近的神经网络](#-------------)
-  * [2](#2)
-- [Sample code 部分解析](#sample-code-----)
-  * [Model](#model)
-  * [Hyper-parameters](#hyper-parameters)
-- [Baselines](#baselines)
-  * [Simple Baseline (0.49798)](#simple-baseline--049798-)
-  * [Medium Baseline (0.66440)](#medium-baseline--066440-)
-  * [Strong Baseline (0.74944)](#strong-baseline--074944-)
-- [开始实验](#----)
-  * [**ReduceLROnPlateau()**](#--reducelronplateau----)
-    + [学习率变化曲线](#-------)
-    + [实验数据](#----)
-    + [**Kaggle 分数: 0.74427**](#--kaggle-----074427--)
-  * [**CosineAnnealingLR()**](#--cosineannealinglr----)
-    + [学习率变化曲线](#--------1)
-    + [实验数据](#-----1)
-    + [**Kaggle 分数: 0.74391（没有提升）**](#--kaggle-----074391--------)
-  * [**CosineAnnealingWarmRestarts()**](#--cosineannealingwarmrestarts----)
-    + [学习率变化曲线](#--------2)
-    + [实验结果](#----)
-    + [**Kaggle 分数: 0.74328（没有提升）**](#--kaggle-----074328--------)
-    + [T_0 *= 2](#t-0----2)
-      - [学习率变化曲线](#--------3)
-      - [实验结果](#-----1)
-      - [**Kaggle 分数: 0.74403（没有提升）**](#--kaggle-----074403--------)
-  * [**no scheduler**](#--no-scheduler--)
-    + [学习率变化曲线](#--------4)
-    + [实验结果](#-----2)
-    + [**Kaggle 分数: 0.74408**](#--kaggle-----074408--)
-  * [**实验结果对比**](#----------)
-- [修改 lr=2.5e-4，重新实验](#---lr-25e-4-----)
-  * [**实验结果对比**](#-----------1)
-- [总结](#--)
-  * [Boss Baseline (0.83017)](#boss-baseline--083017-)
-- [参考链接](#----)
+# 目录
+* [任务目标（分类）](#任务目标分类)
+* [Metric](#metric)
+* [数据解析](#数据解析)
+   * [数据下载](#数据下载)
+* [Report](#report)
+   * [1](#1)
+      * [计算神经网络的参数量](#计算神经网络的参数量)
+      * [构建总参数量接近的神经网络](#构建总参数量接近的神经网络)
+   * [2](#2)
+* [Sample code 部分解析](#sample-code-部分解析)
+   * [Model](#model)
+   * [Hyper-parameters](#hyper-parameters)
+* [Baselines](#baselines)
+   * [Simple Baseline (0.49798)](#simple-baseline-049798)
+   * [Medium Baseline (0.66440)](#medium-baseline-066440)
+   * [Strong Baseline (0.74944)](#strong-baseline-074944)
+		* [开始实验](#开始实验)
+		   * [<strong>ReduceLROnPlateau()</strong>](#reducelronplateau)
+		      * [学习率变化曲线](#学习率变化曲线)
+		      * [实验数据](#实验数据)
+		      * [<strong>Kaggle 分数: 0.74427</strong>](#kaggle-分数-074427)
+		   * [<strong>CosineAnnealingLR()</strong>](#cosineannealinglr)
+		      * [学习率变化曲线](#学习率变化曲线-1)
+		      * [实验数据](#实验数据-1)
+		      * [<strong>Kaggle 分数: 0.74391（没有提升）</strong>](#kaggle-分数-074391没有提升)
+		   * [<strong>CosineAnnealingWarmRestarts()</strong>](#cosineannealingwarmrestarts)
+		      * [学习率变化曲线](#学习率变化曲线-2)
+		      * [实验结果](#实验结果)
+		      * [<strong>Kaggle 分数: 0.74328（没有提升）</strong>](#kaggle-分数-074328没有提升)
+		      * [T_0 *= 2](#t_0--2)
+			 * [学习率变化曲线](#学习率变化曲线-3)
+			 * [实验结果](#实验结果-1)
+			 * [<strong>Kaggle 分数: 0.74403（没有提升）</strong>](#kaggle-分数-074403没有提升)
+		   * [<strong>no scheduler</strong>](#no-scheduler)
+		      * [学习率变化曲线](#学习率变化曲线-4)
+		      * [实验结果](#实验结果-2)
+		      * [<strong>Kaggle 分数: 0.74408</strong>](#kaggle-分数-074408)
+		   * [<strong>实验结果对比</strong>](#实验结果对比)
+		* [修改 lr=2.5e-4，重新实验](#修改-lr25e-4重新实验)
+		   * [<strong>实验结果对比</strong>](#实验结果对比-1)
+		* [总结](#总结)
+   * [Boss Baseline (0.83017)](#boss-baseline-083017)
+* [参考链接](#参考链接)
 
 
 # 任务目标（分类）
@@ -82,6 +84,25 @@
   <img src="https://blogby.oss-cn-guangzhou.aliyuncs.com/20230314115729.png" alt="image-20230314115729703" style="zoom:50%;" />
 
 数据来源于 [LibriSpeech ASR corpus (subset of train-clean-100)](https://www.openslr.org/12/): 100小时 "clean" 的演讲训练数据集子集（[数据源对应的论文](http://www.danielpovey.com/files/2015_icassp_librispeech.pdf)）
+
+## 数据下载
+
+> To use the Kaggle API, sign up for a Kaggle account at [https://www.kaggle.com](https://www.kaggle.com/). Then go to the 'Account' tab of your user profile (`https://www.kaggle.com/<username>/account`) and select 'Create API Token'. This will trigger the download of `kaggle.json`, a file containing your API credentials. Place this file in the location `~/.kaggle/kaggle.json` (on Windows in the location `C:\Users\<Windows-username>\.kaggle\kaggle.json` - you can check the exact location, sans drive, with `echo %HOMEPATH%`). You can define a shell environment variable `KAGGLE_CONFIG_DIR` to change this location to `$KAGGLE_CONFIG_DIR/kaggle.json` (on Windows it will be `%KAGGLE_CONFIG_DIR%\kaggle.json`).
+>
+> -\- [Official Kaggle API](https://github.com/Kaggle/kaggle-api)
+
+`gdown` 的链接总是挂，可以考虑使用 `kaggle` 的 `api`，流程非常简单，替换<username>为你自己的用户名，`https://www.kaggle.com/<username>/account`，然后点击 `Create New API Token`，将下载下来的文件放去应该放的位置：
+
+- Mac 和 Linux 放在 `~/.kaggle`
+- Windows 放在 `C:\Users\<Windows-username>\.kaggle`
+
+```bash
+pip install kaggle
+# 你需要先在 Kaggle -> Account -> Create New API Token 中下载 kaggle.json
+# mv kaggle.json ~/.kaggle/kaggle.json
+kaggle competitions download -c ml2023spring-hw2
+unzip ml2023spring-hw2
+```
 
 # Report
 
@@ -635,7 +656,6 @@ print(f"若将隐藏层网络层数改为: {dest_hidden_layers}，则维数应�
 
 ![最终结果](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230325111254.png)
 
-我需要花一周时间去应对组会的 Deadline，所以会断更一下，结束后我会继续更新。
 
 # 参考链接
 
