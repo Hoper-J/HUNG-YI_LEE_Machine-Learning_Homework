@@ -1,11 +1,16 @@
 >  ML2023Spring - HW2 相关信息：
+
 >  [课程主页](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
+
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
+
 >  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw1/leaderboard?tab=public)
+
 >  [Sample code](https://colab.research.google.com/drive/1BESEu-l3qrGRULoATuXnWasUNuUlVF1Z?fbclid=IwAR1FrjUsp4rTy5PPFV-aWq6IG_Z44mFT4VH5e1lIhlekFl7fAvxGRCTCyR0#scrollTo=QoWPUahCtoT6)
+
 >  [HW02 视频](https://www.bilibili.com/video/BV1TD4y137mP/?p=26&share_source=copy_web&vd_source=e46571d631061853c8f9eead71bdb390)
+
 >  [HW02 PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/HW02+聽測.pdf)
->  个人完整代码分享: [GitHub](https://github.com/Hoper-J/HUNG-YI_LEE_Machine-Learning_Homework)
 >
 >  P.S. 即便 kaggle 上的时间已经截止，你仍然可以在上面提交和查看分数。但需要注意的是：在 kaggle 截止日期前你应该选择两个结果进行最后的Private评分。
 >  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework。
@@ -631,8 +636,6 @@ print(f"若将隐藏层网络层数改为: {dest_hidden_layers}，则维数应�
 ![最终结果](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230325111254.png)
 
 我需要花一周时间去应对组会的 Deadline，所以会断更一下，结束后我会继续更新。
-
-个人完整代码分享: [GitHub](https://github.com/Hoper-J/HUNG-YI_LEE_Machine-Learning_Homework)
 
 # 参考链接
 
