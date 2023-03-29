@@ -4,9 +4,9 @@
 >
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
 >
->  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw1/leaderboard?tab=public)
+>  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw2)
 >
->  [Sample code](https://colab.research.google.com/drive/1BESEu-l3qrGRULoATuXnWasUNuUlVF1Z?fbclid=IwAR1FrjUsp4rTy5PPFV-aWq6IG_Z44mFT4VH5e1lIhlekFl7fAvxGRCTCyR0#scrollTo=QoWPUahCtoT6)
+>  [Sample code](https://colab.research.google.com/drive/1wzeiVy2g7HpSjlidUr0Gi50NnHBWTkvN#scrollTo=KVUGfWTo7_Oj)
 >
 >  [HW02 视频](https://www.bilibili.com/video/BV1TD4y137mP/?p=26&share_source=copy_web&vd_source=e46571d631061853c8f9eead71bdb390)
 >
