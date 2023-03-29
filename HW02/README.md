@@ -18,6 +18,7 @@
 * [任务目标（分类）](#任务目标分类)
 * [Metric](#metric)
 * [数据解析](#数据解析)
+   * [数据下载](#数据下载)
 * [Report](#report)
    * [1](#1)
       * [计算神经网络的参数量](#计算神经网络的参数量)
@@ -82,6 +83,25 @@
   <img src="https://blogby.oss-cn-guangzhou.aliyuncs.com/20230314115729.png" alt="image-20230314115729703" style="zoom:50%;" />
 
 数据来源于 [LibriSpeech ASR corpus (subset of train-clean-100)](https://www.openslr.org/12/): 100小时 "clean" 的演讲训练数据集子集（[数据源对应的论文](http://www.danielpovey.com/files/2015_icassp_librispeech.pdf)）
+
+## 数据下载
+
+> To use the Kaggle API, sign up for a Kaggle account at [https://www.kaggle.com](https://www.kaggle.com/). Then go to the 'Account' tab of your user profile (`https://www.kaggle.com/<username>/account`) and select 'Create API Token'. This will trigger the download of `kaggle.json`, a file containing your API credentials. Place this file in the location `~/.kaggle/kaggle.json` (on Windows in the location `C:\Users\<Windows-username>\.kaggle\kaggle.json` - you can check the exact location, sans drive, with `echo %HOMEPATH%`). You can define a shell environment variable `KAGGLE_CONFIG_DIR` to change this location to `$KAGGLE_CONFIG_DIR/kaggle.json` (on Windows it will be `%KAGGLE_CONFIG_DIR%\kaggle.json`).
+>
+> -\- [Official Kaggle API](https://github.com/Kaggle/kaggle-api)
+
+`gdown` 的链接总是挂，可以考虑使用 `kaggle` 的 `api`，流程非常简单，替换<username>为你自己的用户名，`https://www.kaggle.com/<username>/account`，然后点击 `Create New API Token`，将下载下来的文件放去应该放的位置：
+
+- Mac 和 Linux 放在 `~/.kaggle`
+- Windows 放在 `C:\Users\<Windows-username>\.kaggle`
+
+```bash
+pip install kaggle
+# 你需要先在 Kaggle -> Account -> Create New API Token 中下载 kaggle.json
+# mv kaggle.json ~/.kaggle/kaggle.json
+kaggle competitions download -c ml2023spring-hw2
+unzip ml2023spring-hw2
+```
 
 # Report
 
