@@ -17,18 +17,18 @@
 >  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework
 
 # 目录
-- [任务目标（回归）](#任务目标（回归）)
-- [性能指标（Metric）](#性能指标（Metric）)
-- [数据解析](#数据解析)
-- [Sample code 主体部分解析](#Sample-code-主体部分解析)
-	- [Some Utility Functions](#Some-Utility-Functions)
-	- [Dataset](#Dataset)
-	- [Neural Network Model](#Neural-Network-Model)
-	- [Feature Selection](#Feature-Selection)
-	- [Training Loop](#Training-Loop)
-- [Baselines](#Baselines)
-- [参考链接](#参考链接)
-
+* [任务目标（回归）](#任务目标回归)
+* [性能指标（Metric）](#性能指标metric)
+* [数据解析](#数据解析)
+   * [数据下载](#数据下载)
+* [Sample code 主体部分解析](#sample-code-主体部分解析)
+   * [Some Utility Functions](#some-utility-functions)
+   * [Dataset](#dataset)
+   * [Neural Network Model](#neural-network-model)
+   * [Feature Selection](#feature-selection)
+   * [Training Loop](#training-loop)
+* [Baselines](#baselines)
+* [参考链接](#参考链接)
 
 # 任务目标（回归）：
 
@@ -72,6 +72,25 @@
     - Tested Positive Cases (1) 检测阳性病例，该项为模型的预测目标
 
       - **tested_positive (this is what we want to predict)** 单位为百分比，指有多少比例的人  
+
+## 数据下载
+
+> To use the Kaggle API, sign up for a Kaggle account at [https://www.kaggle.com](https://www.kaggle.com/). Then go to the 'Account' tab of your user profile (`https://www.kaggle.com/<username>/account`) and select 'Create API Token'. This will trigger the download of `kaggle.json`, a file containing your API credentials. Place this file in the location `~/.kaggle/kaggle.json` (on Windows in the location `C:\Users\<Windows-username>\.kaggle\kaggle.json` - you can check the exact location, sans drive, with `echo %HOMEPATH%`). You can define a shell environment variable `KAGGLE_CONFIG_DIR` to change this location to `$KAGGLE_CONFIG_DIR/kaggle.json` (on Windows it will be `%KAGGLE_CONFIG_DIR%\kaggle.json`).
+>
+> -\- [Official Kaggle API](https://github.com/Kaggle/kaggle-api)
+
+`gdown` 的链接总是挂，可以考虑使用 `kaggle` 的 `api`，流程非常简单，替换<username>为你自己的用户名，`https://www.kaggle.com/<username>/account`，然后点击 `Create New API Token`，将下载下来的文件放去应该放的位置：
+
+- Mac 和 Linux 放在 `~/.kaggle`
+- Windows 放在 `C:\Users\<Windows-username>\.kaggle`
+
+```bash
+pip install kaggle
+# 你需要先在 Kaggle -> Account -> Create New API Token 中下载 kaggle.json
+# mv kaggle.json ~/.kaggle/kaggle.json
+kaggle competitions download -c ml2023spring-hw1
+unzip ml2023spring-hw1
+```
 
 # Sample code 主体部分解析
 
