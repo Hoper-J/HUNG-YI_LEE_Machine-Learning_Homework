@@ -1,4 +1,40 @@
 >  ML2023Spring - HW3 相关信息：
+>
+>  [课程主页](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
+> 
+>  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
+> 
+>  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw3)
+> 
+>  [Sample code](https://colab.research.google.com/drive/15A_8ilH-6-T3HOmSFrKbjDinBJl-s-16)
+> 
+>  [HW03 视频](https://www.bilibili.com/video/BV1TD4y137mP/?p=30&share_source=copy_web&vd_source=e46571d631061853c8f9eead71bdb390)
+> 
+>  [HW03 PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/HW03.pdf)
+>  
+>P.S. 即便 kaggle 上的时间已经截止，你仍然可以在上面提交和查看分数。但需要注意的是：在 kaggle 截止日期前你应该选择两个结果进行最后的Private评分。
+>  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework。
+>
+>当前文件名后的 tag 分别对应达成了 kaggle 的 public score 的baseline。
+>  
+>Q1 文件夹对应于 Q1. Augmentation Implementation。
+
+- [任务目标（图像分类）](#任务目标图像分类)
+- [性能指标（Metric）](#性能指标metric)
+- [数据解析](#数据解析)
+  - [数据下载（kaggle）](#数据下载kaggle)
+- [Gradescope (Report)](#gradescope-report)
+  - [Q1. Augmentation Implementation](#q1-augmentation-implementation)
+  - [Q2. Visual Representations Implementation](#q2-visual-representations-implementation)
+- [Baselines](#baselines)
+  - [Simple baseline (0.637)](#simple-baseline-0637)
+  - [Medium baseline (0.700)](#medium-baseline-0700)
+  - [Strong baseline (0.814)](#strong-baseline-0814)
+  - [Boss baseline (0.874)](#boss-baseline-0874)
+- [小坑](#小坑)
+- [参考链接](#参考链接)
+
+>  ML2023Spring - HW3 相关信息：
 >  [课程主页](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
 >  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw3)
@@ -9,23 +45,8 @@
 >
 >  P.S. 即便 kaggle 上的时间已经截止，你仍然可以在上面提交和查看分数。但需要注意的是：在 kaggle 截止日期前你应该选择两个结果进行最后的Private评分。
 >  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework。
->
->  Q1 文件夹对应于 Q1. Augmentation Implementation
 
-* [任务目标（图像分类）](#任务目标图像分类)
-* [性能指标（Metric）](#性能指标metric)
-* [数据解析](#数据解析)
-   * [数据下载（kaggle）](#数据下载kaggle)
-* [Gradescope (Report)](#gradescope-report)
-   * [Q1. Augmentation Implementation](#q1-augmentation-implementation)
-   * [Q2. Visual Representations Implementation](#q2-visual-representations-implementation)
-* [Baselines](#baselines)
-   * [Simple baseline (0.637)](#simple-baseline-0637)
-   * [Medium baseline (0.700)](#medium-baseline-0700)
-   * [Strong baseline (0.814)](#strong-baseline-0814)
-   * [Boss baseline (0.874)](#boss-baseline-0874)
-* [小坑](#小坑)
-* [参考链接](#参考链接)
+[TOC]
 
 # 任务目标（图像分类）
 
@@ -137,17 +158,19 @@ pil_img_demo = [Image.fromarray(np.moveaxis(img.numpy()*255, 0, -1).astype(np.ui
 plot(pil_img_demo) 
 ```
 
-![train_tfm](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230402171704.png)
+![train_tfm](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230525110043.png)
 
 ## Q2. Visual Representations Implementation
 
 下图是 Top/Mid/Bottom 的定义，你可以在 sample code 的最下面找到完成这个问题的代码。
 
-![ CNN architecture](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230403104148.png)
+![ CNN architecture](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230525110040.png)
 
 根据你的模型修改其中的 index。
 
 # Baselines
+
+> 为了方便理解，我将原文件重新分为了三部分： Medium，Strong，Boss，每一个都可以独立运行，并相应的达成 baseline，你可以查看这些文件来帮助自己更好的掌握知识。
 
 ## Simple baseline (0.637)
 
@@ -172,7 +195,7 @@ plot(pil_img_demo)
   - Torchvision 版本 < 0.13 -> **pretrained=False**
   - \> 0.13 -> **weights=None**
 
-  模型对比 (160 epoch, 10 patience, ReduceLROnPlateau，使用了相当于原数据20倍的transforms) ：
+  模型对比 (160 epoch, 10 patience, ReduceLROnPlateau，使用了相当于原数据20倍的transforms，单纯修改最后一层的输出维度为 11) ：
 
   - 初始模型：0.80000
   - resnet50: 0.732
@@ -182,7 +205,7 @@ plot(pil_img_demo)
   - squeezenet: 0.64200
 
   我觉得这一项的主要目的在于让你认识这些预训练模型的架构，因为可以看到，不使用预训练参数的情况下，实验结果并没有变得更好（使用预训练参数的话，以resnet50为例，仅使用预训练模型就可以轻松到达strong baseline，你可以试试，但不要用它来当作你的kaggle结果）。
-  ![image-20230406145717393](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230406145717.png)
+  <img src="https://blogby.oss-cn-guangzhou.aliyuncs.com/20230406145717.png" alt="image-20230406145717393" style="zoom:50%;" />
 
   但既然PDF中的hint仅仅只是使用预训练模型，我相信一定有什么地方可以调优，使得仅使用预训练模型架构就可以达到 strong baseline，简单对比了使用参数和不使用参数的情况下 acc 的提升情况，发现同样的 lr，使用预训练参数的时候上升幅度更大，所以我想了下：
 
@@ -190,9 +213,38 @@ plot(pil_img_demo)
   2. 会不会是我的transforms不够，因为在我的代码中，5%的可能性不进行transforms，也就是说，20倍的数据增强。50倍试试
   3. Medium baseline的工作没做好，加TTA（Test Time Augmentation），将train_tfm用到测试集上试试
 
-  但上述方法都没有得到好的效果，最终我直接用最开始的CNN模型跑了200多个epoch完成了该strong baseline，这个坑以后来填，再耗在这更新来不及了 : )
+  但上述方法都没有得到好的效果，最终我直接用最开始的CNN模型跑了200多个epoch完成了该strong baseline。
 
-  ![image-20230408113446125](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230408113446.png)
+  PS：可以将残差和的思想用于模型架构中提升基础性能
+  
+  ![image-20230408113446125](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230525110050.png)
+  
+  因为佛系更新，所以我开始慢慢打磨之前的代码文件 :)
+  
+  我在代码的全连接层增加了 dropout，并跑了一些实验（100 个 epoch）来寻找较好的 dropout_rate，简单分享一下，也许可以节省你的时间。
+  
+  ![image-20230424205151073](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230525110053.png)
+  
+  对应的 kaggle 得分：
+  
+  | dropout_rate | public_score | private_score |
+  | ------------ | ------------ | ------------- |
+  | 0            | 0.78466      | 0.79266       |
+  | 0.1          | 0.78800      | 0.79266       |
+  | 0.2          | 0.78400      | 0.78333       |
+  | 0.25         | 0.80866      | 0.79666       |
+  | 0.3          | 0.79866      | **0.81666**   |
+  | 0.4          | 0.79000      | 0.79466       |
+  | 0.45         | 0.78866      | 0.79800       |
+  | 0.5          | **0.81666**  | 0.80000       |
+  | 0.55         | 0.79533      | 0.79000       |
+  | 0.6          | 0.77733      | 0.78466       |
+  
+  仅从 public_score 考虑，接下来都片面的选择 dropout_rate=0.5。
+  
+  可以看到，在仅增加 dropout 层的时候，100个epoch便能达成strong baseline，虽然很勉强，但参考时间所对应的 epoch 是大于等于 160 的，所以在此便已经完成了目标。
+  
+  注意一下，预训练模型直接使用：self.cnn = nn.Sequential(*list(resnet50(weights=None).children())[:]*) 后再加全连接层的话会出 shape 不匹配的错误，应该使用 self.cnn = nn.Sequential(*list(resnet50(weights=None).children())[:-1]*) 后 flatten 处理再接全连接层，这里说起来可能不直观，可以去代码中理解，如果你不需要完成 Q2，那不赋值给 cnn 一样可以。
 
 ## Boss baseline (0.874)
 
@@ -201,12 +253,37 @@ plot(pil_img_demo)
   - Ensemble 模型集合
     相关视频: [ML Lecture 22: Ensemble ](https://www.youtube.com/watch?v=tH9FH1DH5n0)，如果没有科学上网，这里是两个相同视频的链接地址：[bilibili](https://www.bilibili.com/video/BV1qx411f7eM)，[学校官网](http://speech.ee.ntu.edu.tw/~tlkagk/courses/ML_2017/Lecture/Ensemble.mp4)。
 
+    关于stacking，这里有两个非常不错的链接供你学习：[Kaggle机器学习之模型融合（stacking）心得](https://zhuanlan.zhihu.com/p/26890738)，[Introduction to Ensembling/Stacking in Python](https://zhuanlan.zhihu.com/p/26890738)
     
+    但其中的细节对于当前的 hw 来说其实有一些问题，不能直接搬运。
+    
+    1. 有一件事困惑了我很久，在做 stacking 的时候，为了严谨，我检查了同个模型跑出来的结果，然后发现导入相同的模型跑出来的结果竟然不相同，将代码精简后也无果，最后我检查发现，是因为 train_tfm 让其每次的输入都不同 :(
+       那问题就明了了，可以将 kfold 分出的 valid_set 用 test_tfm 来固定它，具体实现：重写 subset 类，传入 tfm 决定使用哪种 transform。
+    
+    在做完 CV 和 stacking 后，kaggle 的分数卡在了 0.853，有一个提升方法是在 strong baseline 下修改 Classifier 的架构以获得更好的初始结果。
+    
+    原本只打算每次训练 160 个 epoch 就更新的，因为 epoch 到 120 左右的时候（patience=20），Classifer 就已经 early stop 了，但实际上 ResNet50 和 DenseNet121 的性能仍然有提升空间，思考了一下，还是决定重新跑300个epoch（patience=30）的实验并上传对应的模型参数方便大家复现。
+    
+    不知道是否是我的原因，但 TTA 在此处的提升不大。
+    
+    下表是各模型在 epoch=200, patience=20, dataset=merge 下的 kaggle 分数，& 表示stacking。
+    
+    | model                               | publicScore | privateScore |
+    | :---------------------------------- | :---------- | :----------- |
+    | Classifier & ResNet50 & DenseNet121 | **0.85333** | **0.84200**  |
+    | Classifier                          | 0.84200     | 0.83133      |
+    | Classifier & DenseNet121            | 0.83866     | 0.83333      |
+    | ResNet50 & DenseNet121              | 0.83666     | 0.82466      |
+    | DenseNet121                         | 0.83666     | 0.83133      |
+    | Classifier & ResNet50               | 0.83400     | 0.82066      |
+    | ResNet50                            | 0.82600     | 0.81000      |
 
 # 小坑
 
 1. 注意你的 lr，我在做 cross validation 的时候，不小心将 lr 设置的过大，导致一开始学习的很差，还以为是数据集划分的索引问题，折腾了半天。
-2. 如果你将`train`文件夹和`valid`文件夹下的内容合并成一个新的文件夹（为了做 cross validation），那么在做 K-fold 的时候，序号一定要 shuffle 去打乱，你只要默认打乱了，就不需要考虑太多，否则就会出现一种情况：验证集的标签有可能在训练集中不存在，那就意味着，你的模型可能几乎没见过验证集里面的 label，如果完全没见过，那 acc 甚至有可能是 0。下面是我当时疏忽导致的 bug:![image-20230407205208218](/Users/home/Library/Application Support/typora-user-images/image-20230407205208218.png)
+2. 如果你将`train`文件夹和`valid`文件夹下的内容合并成一个新的文件夹（为了做 cross validation），那么在做 K-fold 的时候，序号一定要 shuffle 去打乱，你只要默认打乱了，就不需要考虑太多，否则就会出现一种情况：验证集的标签有可能在训练集中不存在，那就意味着，你的模型可能几乎没见过验证集里面的 label，如果完全没见过，那 acc 甚至有可能是 0。下面是我当时疏忽导致的 bug:![image-20230407205208218](https://blogby.oss-cn-guangzhou.aliyuncs.com/20230525110018.png)
+
+
 
 
 # 参考链接
