@@ -34,20 +34,6 @@
 - [小坑](#小坑)
 - [参考链接](#参考链接)
 
->  ML2023Spring - HW3 相关信息：
->  [课程主页](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
->  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
->  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw3)
->  [Sample code](https://colab.research.google.com/drive/15A_8ilH-6-T3HOmSFrKbjDinBJl-s-16)
->  [HW03 视频](https://www.bilibili.com/video/BV1TD4y137mP/?p=30&share_source=copy_web&vd_source=e46571d631061853c8f9eead71bdb390)
->  [HW03 PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/HW03.pdf)
->  个人完整代码分享: [GitHub](https://github.com/Hoper-J/HUNG-YI_LEE_Machine-Learning_Homework) | [Gitee](https://gitee.com/Hopeton_J/HUNG-YI_LEE_Machine-Learning_Homework) | [GitCode](https://gitcode.net/weixin_42426841/HUNG-YI_LEE_Machine-Learning_Homework)
->
->  P.S. 即便 kaggle 上的时间已经截止，你仍然可以在上面提交和查看分数。但需要注意的是：在 kaggle 截止日期前你应该选择两个结果进行最后的Private评分。
->  每年的数据集size和feature并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework。
-
-[TOC]
-
 # 任务目标（图像分类）
 
 使用 CNN 进行图像分类
