@@ -143,32 +143,32 @@ Categorization Accuracy: 分类准确度
   from torch.autograd import Variable
 
 
-# https://github.com/zhilangtaosha/SpeakerVerification_AMSoftmax_pytorch/blob/63629989c152664c838823456532682585d72e31/model/model.py#L257
-class AMSoftmax(nn.Module):
-    def __init__(self):
-        super(AMSoftmax, self).__init__()
-
-    def forward(self, input, target, scale=10.0, margin=0.35):
-        cos_theta = input
-        target = target.view(-1, 1)  # size=(B,1)
-
-        index = cos_theta.data * 0.0  # size=(B,Classnum)
-        index.scatter_(1, target.data.view(-1, 1), 1)
-        index = index.byte()
-        index = Variable(index)
-
-        output = cos_theta * 1.0  # size=(B,Classnum)
-        output[index.bool()] -= margin
-        output = output * scale
-
-        logpt = F.log_softmax(output, dim=1)
-        logpt = logpt.gather(1, target)
-        logpt = logpt.view(-1)
-
-        loss = -1 * logpt
-        loss = loss.mean()
-
-        return loss
+  # https://github.com/zhilangtaosha/SpeakerVerification_AMSoftmax_pytorch/blob/63629989c152664c838823456532682585d72e31/model/model.py#L257
+  class AMSoftmax(nn.Module):
+      def __init__(self):
+          super(AMSoftmax, self).__init__()
+  
+      def forward(self, input, target, scale=10.0, margin=0.35):
+          cos_theta = input
+          target = target.view(-1, 1)  # size=(B,1)
+  
+          index = cos_theta.data * 0.0  # size=(B,Classnum)
+          index.scatter_(1, target.data.view(-1, 1), 1)
+          index = index.byte()
+          index = Variable(index)
+  
+          output = cos_theta * 1.0  # size=(B,Classnum)
+          output[index.bool()] -= margin
+          output = output * scale
+  
+          logpt = F.log_softmax(output, dim=1)
+          logpt = logpt.gather(1, target)
+          logpt = logpt.view(-1)
+  
+          loss = -1 * logpt
+          loss = loss.mean()
+  
+          return loss
   ```
 
 这两个模块都有放进Boss baseline的代码中，但我发现并没有让模型的效果变得更好，所以在 main function 模块的最后用了两个全局变量来决定是否使用（这里也有可能是我的用法或者架构问题，才使得效果不好，欢迎大家提出意见）。
