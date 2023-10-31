@@ -215,7 +215,8 @@ Categorization Accuracy: 分类准确度
     在时间维度掩码，基本同上。
 - [[1912.05533] SpecAugment on Large Scale Datasets](https://arxiv.org/abs/1912.05533)
   - 基于上面的方法进行了研究，证明了其在大规模数据集任务上的有效性。
-  - Aadaptive masking: 作者认为对于不同长度的语音使用固定的掩码并不合适，使用了自适应掩码。
+  - **Adaptive masking**
+    作者认为对于不同长度的语音使用固定的掩码并不合适，使用了自适应掩码。
 
 #### 2. Convolution Subsampling
 
@@ -249,8 +250,10 @@ class Conv2dSubampling(nn.Module):
 
 #### 3. Linear & Dropout
 
-- Linear: 对经过下采样处理后的数据做一个映射，`((input_dim - 1) // 2 - 1) // 2`是下采样之后的维度。
-- Dropout: 随机失活层，在训练过程中以一定的概率随机丢弃一些特征，用于防止过拟合。
+- **Linear**
+对经过下采样处理后的数据做一个映射，`((input_dim - 1) // 2 - 1) // 2`是下采样之后的维度。
+- **Dropout**
+随机失活层，在训练过程中以一定的概率随机丢弃一些特征，用于防止过拟合。
 
 ```python
 class ConformerEncoder(nn.Module):
@@ -486,8 +489,6 @@ class ConformerEncoder(nn.Module):
 **ConformerBlock code**
 
 需要注意的是，每个 Module 都使用了残差连接。
-
-<img src="https://blogby.oss-cn-guangzhou.aliyuncs.com/20231027134219.png" style="zoom:50%;" />
 
 ```python
 class ConformerBlock(nn.Module):
