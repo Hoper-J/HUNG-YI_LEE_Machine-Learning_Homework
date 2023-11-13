@@ -4,7 +4,7 @@
 > 
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
 > 
->  [Kaggle link](https://www.kaggle.com/competitions/ml2023spring-hw3)
+>  [Kaggle link](https://www.kaggle.com/t/86ca241732c04da99aca6490080bae73)
 > 
 >  [Sample code](https://colab.research.google.com/drive/15A_8ilH-6-T3HOmSFrKbjDinBJl-s-16)
 > 
