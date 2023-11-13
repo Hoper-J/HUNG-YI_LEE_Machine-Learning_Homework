@@ -4,6 +4,8 @@
 
 现在所有的文件夹中都增加了 sample code 方便参考。
 
+更新了各 Homework 的 kaggle 邀请链接 (来自课程主页)，现在可以直接点击跳转参加，不会再遇到 limited-participation competition 的问题。
+
 - HW01 中增加了 Adam, Momentum, Normalization, L2 regularization, Feature selection, K-fold cross validation 等相关代码，并使用了 Optuna 库进行了参数的自动搜寻。
 - HW02 中修改了原代码的小bug，增加了 tensorboard 和 scheduler 的使用，默认执行的是 strong baseline，你可以检查代码中的 TODO 选项去达成 Boss baseline（使用了BiLSTM）。
 - HW03 中代码根据 baseline 分为了三个部分(Medium, Strong,..)，方便大家查看，之后的代码都会遵循这一点。代码仅针对 sample code 的基础架构进行了训练，所以没有达到 boss baseline。目前代码的分数为0.85200，先上传给大家一点参考思路，闲暇后会重新进行boss baseline的跟进。
