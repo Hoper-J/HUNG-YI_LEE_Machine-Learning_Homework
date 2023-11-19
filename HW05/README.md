@@ -50,7 +50,8 @@
 
 **BLEU（Bilingual Evaluation Understudy）**  双语评估替换
 
-公式：$ \text{BLEU} = BP \cdot \exp\left( \sum_{n=1}^{N} w_n log\ p_n\right)^{\frac{1}{N}}$
+公式：
+$$\text{BLEU} = BP \cdot \exp \left( \sum_{n=1}^{N} w_n log\ p_n\right)^{\frac{1}{N}}$$
 
 首先要明确两个概念
 
@@ -66,16 +67,23 @@
 
 2. **精确度（Precision）**
    精确度是 Candidate text 中与 Reference text 相同的单词数占总单词数的比例。 具体公式如下：
-   $ \text{Precision} = \frac{\text{Number of overlapping words}}{\text{Total number of words in candidate text}} $
+
+   $\text{Precision} = \frac{\text{Number of overlapping words}}{\text{Total number of words in candidate text}}$
+
    比如：
+
    Candidate: <u>Thank you so much</u>, Chris
+
    Reference: <u>Thank you so much</u>, my brother
+
    这里相同的单词数为4，总单词数为5，所以 $\text{Precision} = \frac{{4}}{{5}}$
+
    但存在一个问题：
 
    - **Repetition** 重复
 
      Candidate: <u>Thank Thank Thank</u>
+
      Reference: <u>Thank</u> you so much, my brother
 
      此时的 $\text{Precision} = \frac{{3}}{{3}}$
@@ -85,31 +93,36 @@
 很简单的思想，就是匹配过的不再进行匹配。
 
 Candidate: <u>Thank</u> Thank Thank
+
 Reference: <u>Thank</u> you so much, my brother
 
 $\text{Precision}_1 = \frac{{1}}{{3}}$
 
 - 具体计算如下：
-
-  $Count_{clip} = \min(Count,\ Max\_Ref\_Count)=\min(3,\ 1)=1$
-   $ p_n = \frac{\sum_{\text{n-gram}} Count_{clip}}{\sum_{\text{n-gram}} Count} = \frac{1}{3}$
+  $$Count_{clip} = \min(Count,\ Max\\_Ref\\_Count)=\min(3,\ 1)=1$$
+  
+  $$p_n = \frac{\sum_{\text{n-gram}} Count_{clip}}{\sum_{\text{n-gram}} Count} = \frac{1}{3}$$
 
 现在还存在一个问题：**译文过短**
 
 Candidate: <u>Thank you</u>
+
 Reference: <u>Thank you</u> so much, my brother
 
 $p_1 = \frac{{2}}{{2}} = 1$
 
 这里引出了 **brevity penalty**，这是一个惩罚因子，公式如下：
 
-$BP = \begin{cases} 1& \text{if}\ c>r\\ e^{1-\frac{r}{c}}& \text{if}\ c \leq r  \end{cases}$
-
+```math
+BP = \begin{cases} 1& \text{if}\ c>r\\ e^{1-\frac{r}{c}}& \text{if}\ c \leq r  \end{cases}
+```
 其中 c 是 candidate 的长度，r 是 reference 的长度。
 
 当候选译文的长度 c 等于参考译文的长度 r 的时候，BP = 1，当候选翻译的文本长度较短的时候，用 $e^{1-\frac{r}{c}}$ 作为 BP 值。
 
-回到原来的公式：$ \text{BLEU} = BP \cdot \exp\left( \sum_{n=1}^{N} w_n log\ p_n\right)^{\frac{1}{N}}$，汇总一下符号定义：
+回到原来的公式：
+$$\text{BLEU} = BP \cdot \exp\left( \sum_{n=1}^{N} w_n log\ p_n\right)^{\frac{1}{N}}$$
+汇总一下符号定义：
 
 - $BP$ 文本长度的惩罚因子
 - $N$ n-gram 中 n 的最大值，作业中设置为 4。
