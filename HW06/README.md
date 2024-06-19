@@ -10,8 +10,6 @@
 >
 >  [HW06 PDF](https://docs.google.com/presentation/d/1x8c38zgEbN2zN4EboWhquZ5b3LhVCN8ElhaJCO2vnzY/edit#slide=id.p)
 >
->  个人完整代码分享: [GitHub](https://github.com/Hoper-J/HUNG-YI_LEE_Machine-Learning_Homework) | [Gitee](https://gitee.com/Hopeton_J/HUNG-YI_LEE_Machine-Learning_Homework) | [GitCode](https://gitcode.net/weixin_42426841/HUNG-YI_LEE_Machine-Learning_Homework)
->
 >  P.S. HW06 是在 Judgeboi 上提交的，出于学习目的这里会自定义两个度量的函数，不用深究，遵循 Suggestion 就可以达成学习的目的。
 >
 >  每年的数据集 size 和 feature 并不完全相同，但基本一致，过去的代码仍可用于新一年的 Homework。
@@ -152,7 +150,7 @@ unzip diffusion
 
 # Gradescope
 
-这一题我们先处理可视化部分，这个有助于我们理解自己的模型（毕竟一般没有官方的标准来评价自身生成的图像好坏）。
+这一题我们先处理可视化部分，这个有助于我们理解自己的模型（毕竟没有官方的标准来评价生成的图像好坏）。
 
 ## Question 1
 
@@ -282,7 +280,7 @@ class GaussianDiffusion(nn.Module):
 
 > 实际上如果时间充足，出于学习的目的，可以对超参数或者模型架构进行调整以印证自身的想法。这篇文章是最近重新拾起的，所以只是一个简单的概述帮助理解。
 >
-> 另外，当前 FID 数的度量数量级和 Baseline 是不一致的，这里因为时间原因不做度量标准的还原，Homework06 学习并完成 Suggestion 和 Gradescope 就足够了。
+> 另外，当前 FID 数的度量数量级和 Baseline 是不一致的，这里因为时间原因不做度量标准的还原，完成 Suggestion 和 Gradescope 就足够达成学习的目的了。
 
 ## Simple baseline (FID ≤ 30000, AFD ≥ 0)
 
