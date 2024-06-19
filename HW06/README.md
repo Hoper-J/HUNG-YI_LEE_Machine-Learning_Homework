@@ -316,7 +316,7 @@ class GaussianDiffusion(nn.Module):
 - Model Arch
 
   看了下[HW06 对应的视频]( https://www.bilibili.com/video/BV1TD4y137mP?p=41&vd_source=436107f586d66ab4fcf756c76eb96c35)，从叙述上看应该指的是调整超参数：`channel` 和 `dim_mults`。
-  这里简单的将 `channel` 调整为 64。
+  这里简单的将 `channel` 调整为 32。
   `dim_mults` 初始为 (1, 2, 4)，增加维度改成 (1, 2, 4, 8) 又或者改变其中的值都是允许的。
 
 - Varience Scheduler
