@@ -313,7 +313,7 @@ class GaussianDiffusion(nn.Module):
 
     
 
-- 将 train_num_step 修改为 30000
+- 将 train_num_step 修改为 20000
 
 ## Strong baseline (FID ≤ 10000, AFD ≥ 0.5)
 

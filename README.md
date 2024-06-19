@@ -17,7 +17,8 @@
     - Boss: 应用了 back-translation。
 - HW06 编写了两个函数供大家测算 FID 和 AFD（在 Inference 之后），但需要注意，函数和 JudgeBoi 上的实现（模型不同）是不一致的，只是方便大家对比代码的改动效果。
     - Simple: 修改了 sample code 代码 Trainer 类中的 self.accelerator 部分以去除警告。
-    - Medium: 数据增强，将 timesteps 增加至1000（同 DDPM）。
+    - Medium: 数据增强，将 timesteps 增加至1000（同 [DDPM](https://arxiv.org/abs/2006.11239))）。
     - Strong: 调整超参数 channel 和 dim_mults，增加 cosine_beta_schedule() 和 sigmoid_beta_schedule()。
     - Boss: 使用 StyleGAN 进行图像生成。
+
 ...
