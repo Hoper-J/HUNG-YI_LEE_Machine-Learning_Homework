@@ -3,7 +3,7 @@
 >  [课程主页](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
 >
 >  [课程视频](https://www.bilibili.com/video/BV1TD4y137mP/?spm_id_from=333.337.search-card.all.click&vd_source=436107f586d66ab4fcf756c76eb96c35)
-> 
+>
 >  [Kaggle link](https://www.kaggle.com/t/e001cad568dc4d77b6a5e762172f44d6) 回来了 :)
 >
 >  [Sample code](https://colab.research.google.com/drive/1m0fQjJfkK9vAovxPj9Nd3-hQuxezB2w1)
@@ -12,7 +12,7 @@
 >
 >  [HW07 PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/HW07.pdf)
 >
->  HW7 的代码都很易懂，可以和 2024 年的新课：[生成式AI导论](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php)做一个很好的衔接，因为导论对于 Transformer 库的使用大多数是 HW7 所提到的一些函数。对 AIGC 感兴趣的同学可以去学习，完成 HW7 之后应该能够非常快的上手。
+>  P.S. HW7 的代码都很易懂，可以和 2024 年的新课：[生成式AI导论](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php)做一个很好的衔接，因为导论对于 Transformer 库的使用大多数是 HW7 所提到的一些函数。对 AIGC 感兴趣的同学可以去学习，完成 HW7 之后应该能够非常快的上手。
 >
 
 * [任务目标（BERT 问答）](#任务目标bert-问答)
@@ -28,10 +28,10 @@
       * [Prompt 对比（Bad Examples）](#prompt-对比bad-examples)
       * [Prompt 对比（Good Examples）](#prompt-对比good-examples)
 * [代码解析](#代码解析)
-      * [重点](#重点)
+      - [重点](#重点)
 * [Baselines](#baselines)
    * [Simple baseline (0.45573)](#simple-baseline-045573)
-   * [Medium baseline (0.67820)](#medium-baseline-067820)
+   * [Medium baseli ne (0.67820)](#medium-baseline-067820)
    * [Strong baseline (0.76220)](#strong-baseline-076220)
    * [Boss baseline (0.84506)](#boss-baseline-084506)
 * [拓展链接](#拓展链接)
@@ -251,7 +251,7 @@ unzip ml2023spring-hw7.zip
 
   ![Learning Rate Schedules with Different Warmup Fractions](https://blogby.oss-cn-guangzhou.aliyuncs.com/20240920020716.png)
 
-  我在当前框架上简单进行了对比（注意，如果你想自己进行对比请重新运行文件而不是重复运行单元格，这会导致在之前的模型上开始新的训练）：
+  我在当前框架上简单进行了对比（注意，如果你想自己进行对比，请重新运行文件而不是重复运行单元格，不然会导致在之前的模型上继续训练）：
 
   | Schedule                          | Private Score | Public Score |
   | --------------------------------- | ------------- | ------------ |
@@ -268,7 +268,7 @@ unzip ml2023spring-hw7.zip
 
   doc_stride 在 sample code 代码默认为 150，也就是 max_paragraph_len，你可以理解为默认情况下，文本的窗口不重叠，也就是说第一个窗口从 0 开始 149 结束，第二个窗口从 150 开始，299 结束，这两个窗口之间的文本不会发生重叠，但这存在一个问题：问题的答案可能在 140-160 中，默认的设置会无法捕捉到这部分的答案。所以，我们需要调整这个参数，你可以将其理解为**段落窗口滑动步长**，也可以将其理解为卷积中的 stride。
 
-  **注意，doc_stride 没有用在训练阶段。**
+  **注意，doc_stride 没有用在训练阶段，所以你可以随便更改，重载数据集后注释训练部分然后运行 Testing。**
 
   这里给出一些对比，你可以继续实验：
   
@@ -374,7 +374,7 @@ unzip ml2023spring-hw7.zip
           # ---- Boss -----
   ```
   
-  注意，这部分修改的是 evaluate() 函数，所以不会影响训练，你可以随意的加上自己的想法然后直接运行 Testing 模块得到 result.csv 去查看效果。Boss 增加模块的对比见章末。
+  注意，这部分修改的是 evaluate() 函数，所以**不会影响训练**，你可以随意的加上自己的想法然后直接运行 Testing 模块得到 result.csv 去查看效果。Boss 增加模块的对比见章末。
 
 
 - **梯度累积**
@@ -487,6 +487,8 @@ unzip ml2023spring-hw7.zip
 
 | Pre-trained Model                                            | Params | epoch    | Private Score | Public Score |
 | ------------------------------------------------------------ | ------ | -------- | ------------- | ------------ |
+| [DaydreamerF/chinese-macbert-base-finetuned-accelerate](https://huggingface.co/DaydreamerF/chinese-macbert-base-finetuned-accelerate) | 101M   | 2        | 0.78830       | 0.78660      |
+| [IDEA-CCNL/Erlangshen-MacBERT-325M-TextMatch-Chinese](https://huggingface.co/IDEA-CCNL/Erlangshen-MacBERT-325M-TextMatch-Chinese) | 324M   | 2        | 0.78887       | 0.79228      |
 | [hfl/chinese-macbert-large](https://huggingface.co/hfl/chinese-macbert-large) | 324M   | 1        | 0.81668       | 0.82349      |
 |                                                              |        | 5        | 0.83144       | 0.83030      |
 | [luhua/chinese_pretrain_mrc_macbert_large](https://huggingface.co/luhua/chinese_pretrain_mrc_macbert_large) | 324M   | 1        | 0.83654       | 0.82292      |
@@ -494,7 +496,8 @@ unzip ml2023spring-hw7.zip
 |                                                              |        | 2 (FP32) | 0.84165       | 0.82973      |
 |                                                              |        | 3        | 0.83777       | 0.82065      |
 |                                                              |        | 5        | 0.82917       | 0.82463      |
-| qalover/chinese-pert-large-open-domain-mrc                   |        |          | 出结果后更新  |              |
+| [qalover/chinese-pert-large-open-domain-mrc]()               | 324M   | 0        | 0.56413       | 0.54143      |
+|                                                              |        | 2        | 0.83314       | 0.82519      |
 
 在导入大模型的时候你可能会遇到显存不够的情况，这时候降低 train_batch_size 增加gradient_accumulation_steps 就可以了。
 
@@ -505,6 +508,16 @@ unzip ml2023spring-hw7.zip
 train_batch_size = 4
 gradient_accumulation_steps = 8
 ```
+
+如果想在 2 个 epoch 下达到 Boss baseline，可以寻找并选择大于 324M 的预训练模型。
+
+最后补充一个 doc_string 的对比，doc_string 也是后处理的模块，下面的结果基于 [luhua/chinese_pretrain_mrc_macbert_large](https://huggingface.co/luhua/chinese_pretrain_mrc_macbert_large) 在 epoch=2 下进行修改。
+
+| doc_string              | Private Score | Public Score |
+| ----------------------- | ------------- | ------------ |
+| =max_paragraph_len*0.25 | 0.84222       | 0.83144      |
+| =max_paragraph_len*0.1  | **0.84335**   | **0.83087**  |
+| =max_paragraph_len*0.05 | 0.83881       | 0.82746      |
 
 至此，Homework7 就结束了，希望能对你有所帮助。
 

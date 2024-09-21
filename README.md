@@ -4,7 +4,7 @@
 
 当前代码版本对应的是 2023 年春，其中 HW01 之前是 22 年版本，但我略作修改（修改文件路径）后便可直接用于现有版本，近年 Homework 的主题都一样，你完全可以从往年的优秀代码中学习知识。
 
-现在所有的文件夹中都增加了 sample code 方便参考，HW_Simple_[score].ipynb 是对应 sample code 直接运行的结果，提供一个基准，从 HW3 开始代码分 Medium, Strong, Boss，方便快速索引改动。
+现在所有的文件夹中都增加了 Sample Code 方便参考，HW_Simple_[score].ipynb 是对应 Sample Code 直接运行的结果，提供一个基准，从 HW3 开始代码分 Medium, Strong, Boss，方便索引当前 Baseline 的代码变动。
 
 描述文档中更新了各 Homework 的 Kaggle 邀请链接 (来自课程主页)，现在可以直接点击跳转参加，不会再遇到 limited-participation competition 的问题。
 
