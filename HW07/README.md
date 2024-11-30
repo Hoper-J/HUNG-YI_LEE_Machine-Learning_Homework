@@ -328,15 +328,16 @@ unzip ml2023spring-hw7.zip
   tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese")
   ```
   
-  | Pre-trained Model                                            | Params | epoch | 备注                 | Private Score | Public Score |
-  | ------------------------------------------------------------ | ------ | ----- | -------------------- | ------------- | ------------ |
-  | [google-bert/bert-base-chinese](https://huggingface.co/google-bert/bert-base-chinese) | 103M   | 1     |                      | 0.73155       | 0.72985      |
-  |                                                              |        | 2     |                      | 0.77185       | 0.75993      |
-  | [google-bert/bert-base-multilingual-cased](https://huggingface.co/google-bert/bert-base-multilingual-cased) | 179M   | 1     |                      | 0.74517       | 0.74006      |
-  |                                                              |        | 2     |                      | 0.77525       | 0.76730      |
-  | [FacebookAI/xlm-roberta-base](https://huggingface.co/FacebookAI/xlm-roberta-base) | 279M   | 1     | 不使用token_type_ids | 0.68955       | 0.67139      |
-  | [NchuNLP/Chinese-Question-Answering](https://huggingface.co/NchuNLP/Chinese-Question-Answering) | 103M   | 1     | 不进行训练           | 0.56299       | 0.57094      |
-  | [NchuNLP/Chinese-Question-Answering](https://huggingface.co/NchuNLP/Chinese-Question-Answering) | 103M   | 1     | 进行训练             | **0.79001**   | **0.78149**  |
+| Pre-trained Model                                            | Params | epoch | 备注                 | Private Score | Public Score |
+| ------------------------------------------------------------ | ------ | ----- | -------------------- | ------------- | ------------ |
+| [google-bert/bert-base-chinese](https://huggingface.co/google-bert/bert-base-chinese) | 103M   | 1     |                      | 0.73155       | 0.72985      |
+|                                                              |        | 2     |                      | 0.77185       | 0.75993      |
+| [google-bert/bert-base-multilingual-cased](https://huggingface.co/google-bert/bert-base-multilingual-cased) | 179M   | 1     |                      | 0.74517       | 0.74006      |
+|                                                              |        | 2     |                      | 0.77525       | 0.76730      |
+| [FacebookAI/xlm-roberta-base](https://huggingface.co/FacebookAI/xlm-roberta-base) | 279M   | 1     | 不使用token_type_ids | 0.68955       | 0.67139      |
+| [NchuNLP/Chinese-Question-Answering](https://huggingface.co/NchuNLP/Chinese-Question-Answering) | 103M   | 1     | 不进行训练           | 0.56299       | 0.57094      |
+|                                                              | 103M   | 1     | 进行训练             | **0.79001**   | **0.78149**  |
+
 
 注意：NchuNLP/Chinese-Question-Answering 是一个基于 google-bert/bert-base-chinese 使用 DRCD dataset 进行微调后的问答模型，所以在 kaggle 用的话其实有点降维打击，因为其他模型的 ACC 都是从 0 开始的，而这个模型是从 0.56 开始的，不过可以简单将 epoch 设置高一点自己训练一下 bert-base-chinese，其实没什么差别。
 
@@ -392,8 +393,8 @@ unzip ml2023spring-hw7.zip
           output = model(input_ids=data[0], token_type_ids=data[1], attention_mask=data[2], start_positions=data[3], end_positions=data[4])
           
           # Accumulate loss
-          loss = output.loss / gradient_accumulation_steps
-          accelerator.backward(loss)
+          loss = output.loss
+          accelerator.backward(loss / gradient_accumulation_steps)
   
           # Update accuracy for the current mini-batch
           start_index = torch.argmax(output.start_logits, dim=1)
@@ -428,7 +429,7 @@ unzip ml2023spring-hw7.zip
   
   `loss = output.loss / gradient_accumulation_steps`是因为默认情况下 loss 的计算实际都已经做过平均了，所以我们这里也需要保持一致。
   
-  另外说一句，其实你也可以直接使用 `Accelerator(gradient_accumulation_steps=gradient_accumulation_steps)`。
+  另外说一句，其实你也可以直接使用 `Accelerator(gradient_accumulation_steps=gradient_accumulation_steps)`，详见[官方文档](https://huggingface.co/docs/accelerate/usage_guides/gradient_accumulation)。
   
 - **训练用上 dev 数据集**
   去掉验证部分，你需要注意我在这里将 `QA_Dataset("dev", ...)` 改为了 `QA_Dataset("train", ...)`
