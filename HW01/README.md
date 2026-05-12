@@ -28,6 +28,7 @@
    * [Feature Selection](#feature-selection)
    * [Training Loop](#training-loop)
 * [Baselines](#baselines)
+* [Optuna 自动调参](#optuna-自动调参)
 * [参考链接](#参考链接)
 
 # 任务目标（回归）：
@@ -286,11 +287,36 @@ def trainer(train_loader, valid_loader, model, config, device):
   - 调整其他超参数
 
 
+# Optuna 自动调参
+
+设置 `AUTO_TUNE_PARAM=True` 跑 10 个 trial：
+
+![Optuna 10 trials Kaggle scores](optuna_trials_kaggle.png)
+
+下表汇总每个 trial 的超参数与三项分数，`mean valid` 为 5 折 valid loss 的平均：
+
+| Trial | optim | lr | weight_decay | batch | k | layer | mean valid | Public | Private |
+|---:|:---:|---:|---:|---:|---:|:---:|---:|---:|---:|
+| 0 | Adam | 5.73e-6 | 1.21e-5 | 256 | 24 | [16, 8]  | 1.094 | 1.018 | 1.031 |
+| 1 | Adam | 5.82e-5 | 3.43e-6 | 128 | 30 | [16, 24] | 0.869 | 0.837 | **0.823** |
+| 2 | SGD  | 1.28e-4 | 5.53e-5 | 256 | 32 | [16, 24] | 0.887 | 0.847 | 0.855 |
+| 3 | SGD  | 1.88e-5 | 7.66e-6 | 256 | 19 | [64, 24] | 1.256 | 1.271 | 1.263 |
+| 4 | Adam | 1.55e-6 | 6.98e-6 | 256 | 16 | [24, 32] | 1.228 | 1.161 | 1.166 |
+| 5 | SGD  | 3.07e-5 | 7.25e-6 | 256 | 26 | [64, 24] | 1.242 | 1.177 | 1.201 |
+| 6 | SGD  | 1.00e-5 | 1.46e-5 | 128 | 27 | [32, 24] | 1.350 | 1.281 | 1.290 |
+| 7 | Adam | 3.50e-5 | 3.69e-5 | 256 | 21 | [64, 32] | 0.858 | 0.815 | 0.838 |
+| **8** | **Adam** | **1.53e-4** | **1.66e-4** | **256** | **18** | **[32, 8]** | **0.850** | **0.804** | 0.843 |
+| 9 | SGD  | 6.83e-5 | 2.63e-4 | 256 | 16 | [64, 8]  | 0.887 | 0.812 | 0.852 |
+
+**观察**：Trial 1 的 Public 得分 0.837，但 Private 确是最低的，这一项也和当前 [Leaderboard](https://www.kaggle.com/competitions/ml2023spring-hw1/leaderboard) 中 Private 榜单排名的剧烈变动情况类似。
+
+当前的 Boss 文件设置 `AUTO_TUNE_PARAM=False` 时的默认得分为：Public 0.79768，Private 0.83190。
+
+
 # 参考链接
 
 1. [PyTorch: What is the difference between tensor.cuda() and tensor.to(torch.device("cuda:0"))?](https://stackoverflow.com/questions/62907815/pytorch-what-is-the-difference-between-tensor-cuda-and-tensor-totorch-device)
 1. [PyTorch Tutorial PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/environment.pdf)
-
 
 
 
